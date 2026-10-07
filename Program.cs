@@ -1,41 +1,34 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+var tasks = new[]
 {
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    new { Id = 1, Title = "Apprendre C#", Completed = false },
+    new { Id = 2, Title = "Apprendre ASP.NET", Completed = false },
+    new { Id = 3, Title = "Apprendre Docker", Completed = false}
 };
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapGet("/", () => "Hello World!");
 
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+app.MapGet("/tasks", () =>
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+    return tasks;
+    
+});
+
+app.MapGet("/tasks/{id}", (int id) =>
+{
+    var task = tasks.FirstOrDefault(t => t.Id == id);
+
+    if (task == null)
+    {
+        return Results.NotFound("Task Not Found.");
+    }
+
+    return Results.Ok(task);
+});
+
+// app.UseHttpsRedirection();
+
+app.Run(); 
