@@ -9,6 +9,8 @@ var tasks = new[]
     new { Id = 3, Title = "Apprendre Docker", Completed = false}
 };
 
+// Get
+
 app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/tasks", () =>
@@ -29,6 +31,20 @@ app.MapGet("/tasks/{id}", (int id) =>
     return Results.Ok(task);
 });
 
+// Post 
+
+app.MapPost("/tasks", (TaskRequest task) =>
+{
+    return new
+    {
+        Id = 1,
+        Title = task.Title,
+        Completed = false 
+    };
+});
+
 // app.UseHttpsRedirection();
 
 app.Run(); 
+
+record TaskRequest(string Title); 
