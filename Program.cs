@@ -4,9 +4,9 @@ var app = builder.Build();
 
 var tasks = new[]
 {
-    new { Id = 1, Title = "Apprendre C#", Completed = false },
-    new { Id = 2, Title = "Apprendre ASP.NET", Completed = false },
-    new { Id = 3, Title = "Apprendre Docker", Completed = false}
+    new { Id = 1, Title = "Apprendre C#", Status = false },
+    new { Id = 2, Title = "Apprendre ASP.NET", Status = false },
+    new { Id = 3, Title = "Apprendre Docker", Status = false}
 };
 
 // Get
