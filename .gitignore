@@ -1,0 +1,15 @@
+# Build
+bin/
+obj/
+
+# User-specific
+.vs/
+.vscode/
+
+# Secrets / configuration loale
+appsettings.Development.json
+.env
+
+#OS
+.DS_Store
+Thumbs.db
