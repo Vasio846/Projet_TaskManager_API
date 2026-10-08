@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using TaskModel = TaskManager_API.Models.Task;
-// Evite la confusion avec System.Threading.Tasks.Task de .NET
+using TaskManager_API.Models;
 
 namespace TaskManager_API.Data;
 
@@ -12,5 +11,5 @@ public class AppDbContext : DbContext
     {  
     }
     
-    public DbSet<TaskModel> Tasks { get; set; }
+    public DbSet<TaskItem> Tasks { get; set; }
 }
