@@ -68,5 +68,50 @@ public class TasksController : ControllerBase // hérite de fonctionnalités HTT
         );
         // retourne une réponse HTTP avec la tâche créée 
     }
+
+    [HttpPut("{id}")] // répond aux requêted HTTP PUT /tasks/{id}
+    public async Task<IActionResult> UpdateTask(int id, TaskItem updatedTask)
+    // updatedTask vient du json : {"title":"Task Title", "description":"...", ...}
+    {
+        var task = await _context.Tasks.FindAsync(id);
+        // trouve dans Tasks l'objet dont la clé primaire vaut id 
+
+        if (task == null)
+        {
+            return NotFound();
+        }
+
+        // Modification de l'Objet (TaskTiem)
+        task.Title = updatedTask.Title;
+        task.Description = updatedTask.Description;
+        task.Status = updatedTask.Status;
+        task.Priority = updatedTask.Priority;
+
+        await _context.SaveChangesAsync();
+        // envoie les modifications à PostgreSQL 
+
+        return Ok(task);
+    }
+
+    [HttpDelete("{id}")] // répond aux requêted HTTP DELETE /tasks/{id}
+    public async Task<IActionResult> DeleteTask(int id)
+    {
+        var task = await _context.Tasks.FindAsync(id);
+        // trouve dans Tasks l'objet dont la clé primaire vaut id 
+
+        if (task == null)
+        {
+            return NotFound();
+        }
+
+        _context.Tasks.Remove(task);
+        // marque l'objet comme devant être supprimé
+
+        await _context.SaveChangesAsync();
+        // effectue la modification : DELETE FROM tasks WHERE Id = id
+
+        return NoContent();
+        // Indique que la fonction a été exécutée mais qu'il n'y a rien à retourner 
+    }
 }
 
