@@ -1,8 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using TaskManager.Data;
+// using Microsoft.Extensions.Options;
+using TaskManager_API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Enable Controllers
+builder.Services.AddControllers();
+
+// Enable PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")
@@ -11,14 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-var tasks = new[]
-{
-    new { Id = 1, Title = "Apprendre C#", Status = false },
-    new { Id = 2, Title = "Apprendre ASP.NET", Status = false },
-    new { Id = 3, Title = "Apprendre Docker", Status = false}
-};
+app.MapControllers();
 
-// Get
+/* Get
 
 app.MapGet("/", () => "Hello World!");
 
@@ -40,7 +40,9 @@ app.MapGet("/tasks/{id}", (int id) =>
     return Results.Ok(task);
 });
 
-// Post 
+*/
+
+/* Post 
 
 app.MapPost("/tasks", (TaskRequest task) =>
 {
@@ -52,8 +54,10 @@ app.MapPost("/tasks", (TaskRequest task) =>
     };
 });
 
+*/
+
 // app.UseHttpsRedirection();
 
 app.Run(); 
 
-record TaskRequest(string Title); 
+// record TaskRequest(string Title); 

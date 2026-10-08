@@ -1,4 +1,4 @@
-namespace TaskManager.Models;
+namespace TaskManager_API.Models;
 
 public class Task
 {
