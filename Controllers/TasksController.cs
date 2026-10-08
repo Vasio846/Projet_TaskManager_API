@@ -31,10 +31,25 @@ public class TasksController : ControllerBase // hérite de fonctionnalités HTT
         return Ok(tasks); // Réponse HTTP
     }
 
+    [HttpGet("{id}")] // représente : GET /tasks/{id}
+    public async Task<ActionResult<TaskItem>> GetTask(int id)
+    // ActionResult<TaskItem> : retourne une réponse HTTP contenant un objet Task
+    {
+        var taskItem = await _context.Tasks.FindAsync(id);
+        // Find the TaskItem whose Id is id  
+
+        if(taskItem == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(taskItem);
+    }
+
     [HttpPost] // Méthode exécutée quand une requête HTTP POST arrive 
     public async Task<ActionResult<TaskItem>> CreateTask([FromBody] TaskItem taskItem)
     // Task<..> : System.Threading.Tasks.Task (opération asynchrone) 
-    // ActionResult<Task> : retourne une réponse HTTP contenant un objet Task 
+    // ActionResult<TaskItem> : retourne une réponse HTTP contenant un objet Task 
     // [FromBody] TaskItem : prends le json dans le body HTTP et le transforme en TaskItem 
     {
         taskItem.CreatedAt = DateTime.UtcNow; // Date et Heure de création de la tâche 
@@ -46,8 +61,12 @@ public class TasksController : ControllerBase // hérite de fonctionnalités HTT
         await _context.SaveChangesAsync();
         // EF va générer une requête SQL équivalente à : INSERT INTO "Tasks" 
 
-        // return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
+        return CreatedAtAction(
+            nameof(GetTask), 
+            new { id = taskItem.Id }, 
+            taskItem
+        );
         // retourne une réponse HTTP avec la tâche créée 
-        return Ok(taskItem);
     }
 }
+
