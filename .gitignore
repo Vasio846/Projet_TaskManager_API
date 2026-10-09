@@ -5,10 +5,22 @@ obj/
 # User-specific
 .vs/
 .vscode/
+*.user
+*.suo
+
+# Fichiers temporaires
+*.log
 
 # Secrets / configuration loale
 appsettings.Development.json
 .env
+.env.*
+!.env.example
+
+# Certificats
+*.pfx
+*.p12
+*.key
 
 #OS
 .DS_Store

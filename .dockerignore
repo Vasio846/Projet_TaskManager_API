@@ -1,0 +1,20 @@
+# Fichiers générés par .NET
+bin/
+obj/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vs/
+.vscode/
+
+# Fichiers temporaires
+*.user
+*.suo
+
+# Secrets et configuration locale
+.env
+.env.*
+! .env.example
