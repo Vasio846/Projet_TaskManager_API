@@ -1,8 +1,8 @@
-# ERREURS : =================================================================
+# ERREURS : =============================
    - charactères ASCII uniquement, (é, è, ç, ...) pas acceptés 
 
 
-# Push : DockerCompose Test (10/10/26) ======================================
+# Push : DockerCompose Test (10/10/26) ===========
 
 docker compose up -d --build api        # Check wsl version if error
 docker compose ps
