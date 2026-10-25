@@ -48,9 +48,27 @@ Invoke-RestMethod -Method Put -Uri "http://localhost:8080/tasks/1" `
 Invoke-RestMethod -Method Delete -Uri "http://localhost:8080/tasks/1"
 
 ### To close:
-   docker compose down
+docker compose down
 ### To close and delete database data: 
-   docker compose down -v
+docker compose down -v
+
+# Push : Kubernetes Test (10/10/26) ============
+
+### Kubernetes setup reminder: 
+kubectl apply -f k8s/postgres-secret.yaml
+kubectl apply -f k8s/postgres-pvc.yaml
+kubectl apply -f k8s/postgres-deployment.yaml
+kubectl apply -f k8s/postgres-service.yaml
+
+### Enter pod shell: 
+kubectl exec -it deployment/postgres -- sh
+### Exit pod shell
+exit
+
+### Launch psql from pod shell
+psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+### Leave psql
+\q
 
 ============================================================================
 

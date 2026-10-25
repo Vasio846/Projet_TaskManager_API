@@ -22,6 +22,9 @@ appsettings.Development.json
 *.p12
 *.key
 
-#OS
+# OS
 .DS_Store
 Thumbs.db
+
+# K8s
+k8s/postgres-secret.yaml
