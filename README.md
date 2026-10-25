@@ -52,7 +52,7 @@ docker compose down
 ### To close and delete database data: 
 docker compose down -v
 
-# Push : Kubernetes Test (10/10/26) ============
+# Push : Kubernetes Test (25/10/26) ============
 
 ### Kubernetes setup reminder: 
 kubectl apply -f k8s/postgres-secret.yaml
